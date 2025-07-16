@@ -2,39 +2,80 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>Natija.mr - نتائج الباكالوريا 2019</title>
+  <title>Natija.mr - النتائج الوطنية</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      direction: rtl;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
       text-align: center;
+      direction: rtl;
     }
+
+    header {
+      background-color: #2c3e50;
+      padding: 20px;
+      color: white;
+    }
+
     h1 {
-      color: #2c3e50;
-      margin-top: 20px;
+      margin: 0;
+      font-size: 28px;
     }
+
+    .menu {
+      margin: 30px auto;
+    }
+
+    .menu button {
+      padding: 15px 25px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu button:hover {
+      background-color: #2980b9;
+    }
+
+    #message {
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+
     input[type="search"] {
       padding: 10px;
       margin: 20px auto;
       width: 300px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      display: block;
+      display: none;
     }
+
     table {
       width: 90%;
       margin: 0 auto 40px auto;
       border-collapse: collapse;
+      display: none;
     }
+
     th, td {
       padding: 12px;
       border: 1px solid #ccc;
     }
+
     th {
       background-color: #2980b9;
       color: white;
     }
+
     tr:nth-child(even) {
       background-color: #f2f2f2;
     }
@@ -42,9 +83,18 @@
 </head>
 <body>
 
-  <h1>نتائج الباكالوريا 2019 - Mauritanie</h1>
+  <header>
+    <h1>نتائج الامتحانات الوطنية في موريتانيا</h1>
+  </header>
+
+  <div class="menu">
+    <button onclick="loadResults('bac')">نتائج الباكالوريا</button>
+    <button onclick="alert('📌 سيتم إضافة نتائج الإعدادية قريبًا')">نتائج الإعدادية</button>
+    <button onclick="alert('📌 سيتم إضافة نتائج الابتدائية قريبًا')">نتائج الابتدائية</button>
+  </div>
 
   <input type="search" id="searchInput" placeholder="ابحث بالاسم أو رقم التسجيل..." onkeyup="filterResults()">
+  <div id="message"></div>
 
   <table id="resultsTable">
     <thead>
@@ -62,15 +112,33 @@
   <script>
     let allResults = [];
 
-    // تحميل بيانات JSON
-    fetch('resultats_bac_2019.json')
-      .then(response => response.json())
-      .then(data => {
-        allResults = data;
-        renderResults(data);
-      });
+    function loadResults(type) {
+      let fileName = '';
+      if (type === 'bac') fileName = 'resultats_bac_2019.json';
+      else return;
 
-    // عرض النتائج في الجدول
+      document.getElementById("searchInput").style.display = "block";
+      document.getElementById("resultsTable").style.display = "table";
+      document.getElementById("message").textContent = "جاري تحميل النتائج...";
+
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("فشل تحميل البيانات.");
+          }
+          return response.json();
+        })
+        .then(data => {
+          allResults = data;
+          document.getElementById("message").textContent = "";
+          renderResults(data);
+        })
+        .catch(error => {
+          document.getElementById("message").textContent = "⚠️ لم يتم العثور على نتائج، تأكد من رفع الملف " + fileName;
+          console.error(error);
+        });
+    }
+
     function renderResults(data) {
       const tbody = document.querySelector("#resultsTable tbody");
       tbody.innerHTML = "";
@@ -86,9 +154,8 @@
       });
     }
 
-    // فلترة النتائج عند البحث
     function filterResults() {
-      const query = document.getElementById("searchInput").value.toLowerCase();
+      const query = document.getElementById("searchInput").value.toLowerCase().replace(/\\s/g, '');
       const filtered = allResults.filter(item =>
         item.name.toLowerCase().includes(query) ||
         String(item.num).includes(query)

@@ -1,222 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Natija.mr - نتائج الامتحانات في موريتانيا</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f6ff;
-    margin: 0; padding: 0;
-    color: #004080;
-    direction: rtl;
-  }
-  header {
-    background-color: #004080;
-    color: white;
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  nav {
-    background: #0066cc;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 10px 0;
-  }
-  nav a {
-    color: white;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: background-color 0.3s;
-    cursor: pointer;
-  }
-  nav a.active {
-    background: #004080;
-  }
-  main {
-    max-width: 900px;
-    margin: 25px auto;
-    padding: 0 15px;
-  }
-  section {
-    background: white;
-    padding: 20px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #cce0ff;
-  }
-  h2 {
-    color: #004080;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #0066cc;
-    padding-bottom: 5px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-  }
-  table, th, td {
-    border: 1px solid #0066cc;
-  }
-  th, td {
-    padding: 8px;
-    text-align: center;
-  }
-  th {
-    background-color: #004080;
-    color: white;
-  }
-  input[type="search"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    margin-top: 10px;
-    border: 1px solid #0066cc;
-    border-radius: 5px;
-  }
-  footer {
-    text-align: center;
-    padding: 15px;
-    background: #004080;
-    color: white;
-    font-size: 0.9em;
-    margin-top: 40px;
-  }
-  @media (max-width: 600px) {
-    nav {
-      flex-direction: column;
-      gap: 10px;
+  <meta charset="UTF-8">
+  <title>Natija.mr - نتائج الباكالوريا 2019</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; direction: rtl; text-align: center; }
+    h1 { color: #2c3e50; margin-top: 20px; }
+    input[type="search"] {
+      padding: 10px;
+      margin: 20px auto;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
     }
-    table, th, td {
-      font-size: 0.85em;
+    table {
+      width: 90%;
+      margin: 0 auto 40px auto;
+      border-collapse: collapse;
     }
-  }
-</style>
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 <body>
-  <header>Natija.mr - نتائج الامتحانات في موريتانيا</header>
-  <nav>
-    <a class="tablink active" onclick="openTab(event, 'primaire')">ختم الابتدائية</a>
-    <a class="tablink" onclick="openTab(event, 'prepa')">ختم الإعدادية</a>
-    <a class="tablink" onclick="openTab(event, 'bac')">الباكالوريا</a>
-  </nav>
-  <main>
-    <!-- ختم الابتدائية -->
-    <section id="primaire" class="tabcontent" style="display:block;">
-      <h2>نتائج ختم الابتدائية</h2>
-      <input type="search" id="searchPrimaire" placeholder="ابحث بالاسم أو رقم التسجيل" onkeyup="searchTable('searchPrimaire','tablePrimaire')" />
-      <table id="tablePrimaire">
-        <thead>
-          <tr>
-            <th>رقم التسجيل</th>
-            <th>الاسم الكامل</th>
-            <th>المدرسة</th>
-            <th>المعدل</th>
-            <th>الحالة</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1001</td><td>محمد ولد أحمد</td><td>مدرسة المحبة</td><td>14.5</td><td>ناجح</td></tr>
-          <tr><td>1002</td><td>فاطمة بنت سيدي</td><td>مدرسة النور</td><td>12.0</td><td>ناجح</td></tr>
-          <tr><td>1003</td><td>سيدي أحمد باب</td><td>مدرسة الأمل</td><td>9.5</td><td>راسب</td></tr>
-          <tr><td>1004</td><td>آمنة بنت الحسن</td><td>مدرسة الهدى</td><td>15.2</td><td>ناجح</td></tr>
-          <tr><td>1005</td><td>محمد ولد عبدالله</td><td>مدرسة المستقبل</td><td>11.7</td><td>ناجح</td></tr>
-        </tbody>
-      </table>
-    </section>
+  <h1>نتائج الباكالوريا 2019 - Mauritanie</h1>
+  <input type="search" id="searchInput" placeholder="ابحث بالاسم أو رقم التسجيل..." onkeyup="filterResults()">
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th>رقم التسجيل</th>
+        <th>الاسم الكامل</th>
+        <th>الشعبة</th>
+        <th>المعدل</th>
+        <th>النتيجة</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-    <!-- ختم الإعدادية -->
-    <section id="prepa" class="tabcontent" style="display:none;">
-      <h2>نتائج ختم الإعدادية</h2>
-      <input type="search" id="searchPrepa" placeholder="ابحث بالاسم أو رقم التسجيل" onkeyup="searchTable('searchPrepa','tablePrepa')" />
-      <table id="tablePrepa">
-        <thead>
-          <tr>
-            <th>رقم التسجيل</th>
-            <th>الاسم الكامل</th>
-            <th>المدرسة</th>
-            <th>المعدل</th>
-            <th>الحالة</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>2001</td><td>خالد ولد الشيخ</td><td>مدرسة النجاح</td><td>13.8</td><td>ناجح</td></tr>
-          <tr><td>2002</td><td>سمية بنت أحمد</td><td>مدرسة البنين</td><td>10.2</td><td>راسب</td></tr>
-          <tr><td>2003</td><td>أحمد ولد إبراهيم</td><td>مدرسة الامل</td><td>14.0</td><td>ناجح</td></tr>
-          <tr><td>2004</td><td>خديجة بنت المصطفى</td><td>مدرسة النخبة</td><td>15.5</td><td>ناجح</td></tr>
-          <tr><td>2005</td><td>سالم ولد محمد</td><td>مدرسة الحكمة</td><td>12.3</td><td>ناجح</td></tr>
-        </tbody>
-      </table>
-    </section>
+  <script>
+    let allResults = [];
 
-    <!-- الباكالوريا -->
-    <section id="bac" class="tabcontent" style="display:none;">
-      <h2>نتائج الباكالوريا</h2>
-      <input type="search" id="searchBac" placeholder="ابحث بالاسم أو رقم التسجيل" onkeyup="searchTable('searchBac','tableBac')" />
-      <table id="tableBac">
-        <thead>
-          <tr>
-            <th>رقم التسجيل</th>
-            <th>الاسم الكامل</th>
-            <th>الشعبة</th>
-            <th>المعدل</th>
-            <th>الحالة</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>3001</td><td>أحمد ولد أحمد</td><td>علوم تجريبية</td><td>15.7</td><td>ناجح</td></tr>
-          <tr><td>3002</td><td>مريم بنت الحسن</td><td>آداب وفلسفة</td><td>13.3</td><td>ناجح</td></tr>
-          <tr><td>3003</td><td>سلمان ولد محمد</td><td>رياضيات</td><td>12.0</td><td>راسب</td></tr>
-          <tr><td>3004</td><td>آمنة بنت أحمد</td><td>علوم تجريبية</td><td>14.5</td><td>ناجح</td></tr>
-          <tr><td>3005</td><td>خالد ولد إبراهيم</td><td>علوم تجريبية</td><td>16.2</td><td>ناجح</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-  <footer>© 2025 Natija.mr | تم التطوير بواسطة Babe</footer>
+    fetch('resultats_bac_2019.json')
+      .then(response => response.json())
+      .then(data => {
+        allResults = data;
+        renderResults(data);
+      });
 
-<script>
-  function openTab(evt, tabName) {
-    // اخفاء كل التبويبات
-    const tabcontents = document.querySelectorAll(".tabcontent");
-    tabcontents.forEach(tc => tc.style.display = "none");
-    // إزالة تمييز من كل الأزرار
-    const tablinks = document.querySelectorAll(".tablink");
-    tablinks.forEach(tl => tl.classList.remove("active"));
-    // عرض التبويب المحدد
-    document.getElementById(tabName).style.display = "block";
-    // تمييز الزر المختار
-    evt.currentTarget.classList.add("active");
-  }
-
-  function searchTable(inputId, tableId) {
-    const input = document.getElementById(inputId);
-    const filter = input.value.toLowerCase();
-    const table = document.getElementById(tableId);
-    const tr = table.getElementsByTagName("tr");
-    
-    for (let i = 1; i < tr.length; i++) {
-      let visible = false;
-      const td = tr[i].getElementsByTagName("td");
-      for (let j = 0; j < td.length; j++) {
-        if (td[j]) {
-          if (td[j].textContent.toLowerCase().indexOf(filter) > -1) {
-            visible = true;
-            break;
-          }
-        }
-      }
-      tr[i].style.display = visible ? "" : "none";
+    function renderResults(data) {
+      const tbody = document.querySelector("#resultsTable tbody");
+      tbody.innerHTML = "";
+      data.forEach(item => {
+        const row = `<tr>
+          <td>${item.num}</td>
+          <td>${item.name}</td>
+          <td>${item.serie}</td>
+          <td>${item.moyenne}</td>
+          <td>${item.decision}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
     }
-  }
-</script>
+
+    function filterResults() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = allResults.filter(item =>
+        item.name.toLowerCase().includes(query) || String(item.num).includes(query)
+      );
+      renderResults(filtered);
+    }
+  </script>
 </body>
 </html>

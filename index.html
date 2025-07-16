@@ -1,18 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>Natija.mr - نتائج الباكالوريا 2019</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f9f9f9; direction: rtl; text-align: center; }
-    h1 { color: #2c3e50; margin-top: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      direction: rtl;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-top: 20px;
+    }
     input[type="search"] {
       padding: 10px;
       margin: 20px auto;
       width: 300px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      display: block;
     }
     table {
       width: 90%;
@@ -33,8 +41,11 @@
   </style>
 </head>
 <body>
+
   <h1>نتائج الباكالوريا 2019 - Mauritanie</h1>
+
   <input type="search" id="searchInput" placeholder="ابحث بالاسم أو رقم التسجيل..." onkeyup="filterResults()">
+
   <table id="resultsTable">
     <thead>
       <tr>
@@ -51,6 +62,7 @@
   <script>
     let allResults = [];
 
+    // تحميل بيانات JSON
     fetch('resultats_bac_2019.json')
       .then(response => response.json())
       .then(data => {
@@ -58,6 +70,7 @@
         renderResults(data);
       });
 
+    // عرض النتائج في الجدول
     function renderResults(data) {
       const tbody = document.querySelector("#resultsTable tbody");
       tbody.innerHTML = "";
@@ -73,13 +86,16 @@
       });
     }
 
+    // فلترة النتائج عند البحث
     function filterResults() {
       const query = document.getElementById("searchInput").value.toLowerCase();
       const filtered = allResults.filter(item =>
-        item.name.toLowerCase().includes(query) || String(item.num).includes(query)
+        item.name.toLowerCase().includes(query) ||
+        String(item.num).includes(query)
       );
       renderResults(filtered);
     }
   </script>
+
 </body>
 </html>

@@ -1,222 +1,187 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
     <title>نتائج الباكالوريا 2019</title>
     <style>
         body {
-            font-family: 'Helvetica', sans-serif;
-            background: #f5f7fa;
-            color: #333;
-            margin: 0;
-            padding: 0;
+            font-family: 'Helvetica World', sans-serif;
+            background-color: #f8f9fa;
             text-align: center;
+            padding: 20px;
+            direction: rtl;
         }
-        header {
-            background-color: #004b8d;
-            color: white;
-            padding: 1rem 0;
-        }
-        .filters, .search-box {
-            margin: 1rem auto;
-            max-width: 600px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        h1 {
+            color: #2c3e50;
         }
         select, input {
-            padding: 0.5rem;
-            font-size: 1rem;
-            border-radius: 5px;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
             border: 1px solid #ccc;
-            flex: 1 1 200px;
+            font-size: 16px;
         }
         button {
-            background: #004b8d;
+            padding: 10px 20px;
+            background-color: #2980b9;
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            font-size: 16px;
         }
         table {
-            width: 95%;
-            margin: 2rem auto;
+            margin: auto;
+            margin-top: 30px;
             border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            width: 90%;
         }
         th, td {
-            padding: 0.75rem;
+            padding: 12px;
             border: 1px solid #ddd;
         }
         th {
-            background: #004b8d;
+            background-color: #3498db;
             color: white;
         }
         tr:nth-child(even) {
-            background: #f9f9f9;
+            background-color: #f2f2f2;
         }
-        .top-title {
-            font-size: 1.2rem;
-            color: #004b8d;
-            margin-top: 1rem;
+        .filters {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>نتائج الباكالوريا 2019</h1>
-    </header>
-    <div class="search-box">
-        <input type="text" id="searchMatricule" placeholder="أدخل رقم الجلوس الكامل">
-        <button onclick="searchByMatricule()">بحث</button>
+    <h1>نتائج الباكالوريا 2019</h1>
+
+    <div>
+        <input type="text" id="searchInput" placeholder="أدخل رقم الجلوس الكامل">
+        <button onclick="search()">بحث</button>
     </div>
+
     <div class="filters">
-        <select id="wilayaFilter" onchange="updateMoughataaOptions()">
+        <select id="wilayaSelect" onchange="filterByWilaya()">
             <option value="">اختر الولاية</option>
         </select>
-        <select id="moughataaFilter" onchange="updateSchoolOptions()">
+        <select id="moughataaSelect" onchange="filterByMoughataa()">
             <option value="">اختر المقاطعة</option>
         </select>
-        <select id="schoolFilter" onchange="updateCenterOptions()">
+        <select id="schoolSelect" onchange="filterBySchool()">
             <option value="">اختر المدرسة</option>
         </select>
-        <select id="centerFilter" onchange="filterResults()">
+        <select id="centerSelect" onchange="filterByCenter()">
             <option value="">اختر المركز</option>
         </select>
     </div>
-    <div class="top-title" id="tableTitle">العشرة الأوائل</div>
-    <table id="resultsTable">
-        <thead><tr id="headerRow"></tr></thead>
-        <tbody id="resultsBody"></tbody>
-    </table>
+
+    <div id="resultsTable"></div>
+
     <script>
-        let data = [], filteredData = [];
-        let wilayas = new Set(), moughataas = {}, schools = {}, centers = {};
+        let allResults = [];
+        let top10Results = [];
 
-        async function loadData() {
-            let files = ["bac_part1.json", "bac_part2.json", "bac_part3.json", "bac_part4.json"];
-            let results = [];
-            for (let file of files) {
-                let res = await fetch(file);
-                let json = await res.json();
-                results = results.concat(json);
-            }
-            data = results;
-            prepareFilters();
-            displayTop10();
+        async function loadTop10() {
+            const res = await fetch("top10.json");
+            top10Results = await res.json();
+            displayResults(top10Results);
         }
 
-        function prepareFilters() {
-            data.forEach(d => {
-                if (!moughataas[d.wilaya]) moughataas[d.wilaya] = new Set();
-                moughataas[d.wilaya].add(d.moughataa);
-                if (!schools[d.moughataa]) schools[d.moughataa] = new Set();
-                schools[d.moughataa].add(d.ecole);
-                if (!centers[d.ecole]) centers[d.ecole] = new Set();
-                centers[d.ecole].add(d.centre);
-                wilayas.add(d.wilaya);
+        function displayResults(results) {
+            if (results.length === 0) {
+                document.getElementById("resultsTable").innerHTML = "<p>لا توجد نتائج</p>";
+                return;
+            }
+            let html = "<table><thead><tr><th>الاسم</th><th>رقم الجلوس</th><th>المعدل</th><th>الولاية</th><th>المدرسة</th><th>المركز</th></tr></thead><tbody>";
+            results.forEach(r => {
+                html += `<tr>
+                    <td>${r.nom}</td>
+                    <td>${r.numero}</td>
+                    <td>${r.moyenne}</td>
+                    <td>${r.wilaya || ''}</td>
+                    <td>${r.ecole || ''}</td>
+                    <td>${r.centre || ''}</td>
+                </tr>`;
             });
-            updateOptions("wilayaFilter", Array.from(wilayas));
+            html += "</tbody></table>";
+            document.getElementById("resultsTable").innerHTML = html;
         }
 
-        function updateOptions(id, items) {
-            let select = document.getElementById(id);
-            select.innerHTML = "<option value=''>اختر</option>";
-            items.forEach(i => {
-                let opt = document.createElement("option");
-                opt.value = i;
-                opt.textContent = i;
-                select.appendChild(opt);
-            });
+        async function search() {
+            const numero = document.getElementById("searchInput").value.trim();
+            if (numero.length === 0) return;
+            const partIndex = getPartIndex(numero);
+            const res = await fetch(`results_part${partIndex}.json`);
+            const results = await res.json();
+            const found = results.find(r => r.numero == numero);
+            displayResults(found ? [found] : []);
         }
 
-        function updateMoughataaOptions() {
-            let w = document.getElementById("wilayaFilter").value;
-            if (w && moughataas[w]) {
-                updateOptions("moughataaFilter", Array.from(moughataas[w]));
-            } else {
-                updateOptions("moughataaFilter", []);
-            }
-            updateOptions("schoolFilter", []);
-            updateOptions("centerFilter", []);
+        function getPartIndex(numero) {
+            const num = parseInt(numero);
+            if (num < 3000) return 1;
+            else if (num < 6000) return 2;
+            else if (num < 9000) return 3;
+            else return 4;
         }
 
-        function updateSchoolOptions() {
-            let m = document.getElementById("moughataaFilter").value;
-            if (m && schools[m]) {
-                updateOptions("schoolFilter", Array.from(schools[m]));
-            } else {
-                updateOptions("schoolFilter", []);
-            }
-            updateOptions("centerFilter", []);
-        }
-
-        function updateCenterOptions() {
-            let s = document.getElementById("schoolFilter").value;
-            if (s && centers[s]) {
-                updateOptions("centerFilter", Array.from(centers[s]));
-            } else {
-                updateOptions("centerFilter", []);
-            }
-        }
-
-        function displayTable(dataToShow) {
-            let tableHead = document.getElementById("headerRow");
-            let tableBody = document.getElementById("resultsBody");
-            tableHead.innerHTML = "";
-            tableBody.innerHTML = "";
-            if (!dataToShow.length) return;
-            let keys = Object.keys(dataToShow[0]);
-            keys.forEach(k => {
-                let th = document.createElement("th");
-                th.textContent = k;
-                tableHead.appendChild(th);
-            });
-            dataToShow.forEach(row => {
-                let tr = document.createElement("tr");
-                keys.forEach(k => {
-                    let td = document.createElement("td");
-                    td.textContent = row[k];
-                    tr.appendChild(td);
-                });
-                tableBody.appendChild(tr);
+        function populateFilters(data) {
+            const wilayas = [...new Set(data.map(r => r.wilaya))].filter(Boolean);
+            const wilayaSelect = document.getElementById("wilayaSelect");
+            wilayas.forEach(w => {
+                const option = document.createElement("option");
+                option.value = w;
+                option.textContent = w;
+                wilayaSelect.appendChild(option);
             });
         }
 
-        function displayTop10() {
-            let top = [...data.filter(d => d.decision && d.decision.includes("Admis Sn"))]
-                .sort((a, b) => parseFloat(b.moyenne) - parseFloat(a.moyenne)).slice(0, 10);
-            document.getElementById("tableTitle").textContent = "العشرة الأوائل";
-            displayTable(top);
+        async function filterByWilaya() {
+            const wilaya = document.getElementById("wilayaSelect").value;
+            const filtered = top10Results.filter(r => r.wilaya === wilaya);
+            displayResults(filtered);
         }
 
-        function filterResults() {
-            let center = document.getElementById("centerFilter").value;
-            if (!center) return;
-            let filtered = data.filter(d => d.centre === center && d.decision.includes("Admis Sn"));
-            filtered = filtered.sort((a, b) => parseFloat(b.moyenne) - parseFloat(a.moyenne));
-            document.getElementById("tableTitle").textContent = "النتائج في المركز: " + center;
-            displayTable(filtered);
+        async function filterByMoughataa() {
+            const moughataa = document.getElementById("moughataaSelect").value;
+            const filtered = top10Results.filter(r => r.moughataa === moughataa);
+            displayResults(filtered);
         }
 
-        function searchByMatricule() {
-            let mat = document.getElementById("searchMatricule").value.trim();
-            if (mat.length < 5) return alert("أدخل رقم جلوس صحيح");
-            let found = data.find(d => d.matricule === mat);
-            if (!found) return alert("الرقم غير موجود");
-            document.getElementById("tableTitle").textContent = "نتيجة رقم الجلوس: " + mat;
-            displayTable([found]);
+        async function filterBySchool() {
+            const ecole = document.getElementById("schoolSelect").value;
+            const files = ["results_part1.json", "results_part2.json", "results_part3.json", "results_part4.json"];
+            let all = [];
+            for (const file of files) {
+                const res = await fetch(file);
+                const data = await res.json();
+                all.push(...data.filter(r => r.ecole === ecole));
+            }
+            displayResults(all);
         }
 
-        loadData();
+        async function filterByCenter() {
+            const center = document.getElementById("centerSelect").value;
+            const files = ["results_part1.json", "results_part2.json", "results_part3.json", "results_part4.json"];
+            let all = [];
+            for (const file of files) {
+                const res = await fetch(file);
+                const data = await res.json();
+                all.push(...data.filter(r => r.centre === center));
+            }
+            displayResults(all);
+        }
+
+        // تحميل أولي
+        window.onload = async () => {
+            await loadTop10();
+            populateFilters(top10Results);
+        };
     </script>
 </body>
 </html>

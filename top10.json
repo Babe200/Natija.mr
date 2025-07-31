@@ -1,0 +1,92 @@
+[
+  {
+    "numero": "18580",
+    "nom": "Ahmed Mahmoud Mohameden Abatna",
+    "moyenne": 17.28515625,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Ecole Annexe",
+    "serie": "M"
+  },
+  {
+    "numero": "32503",
+    "nom": "Cheikh Abderrahmane El Heiba Sidi El Messioub",
+    "moyenne": 16.779947916666664,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 3 (Sud)",
+    "centre": "Collége Arafat 3",
+    "serie": "SN"
+  },
+  {
+    "numero": "18628",
+    "nom": "Soultane Tourad Lehbib El Hachmy",
+    "moyenne": 16.375,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Lycée Excellence 1",
+    "serie": "SN"
+  },
+  {
+    "numero": "32325",
+    "nom": "Imane Mohamed El Houssein Habiboullah",
+    "moyenne": 16.274193548387096,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 3 (Sud)",
+    "centre": "Lycée Arafat 2 (B)",
+    "serie": "SN"
+  },
+  {
+    "numero": "18633",
+    "nom": "Aminetou Bintou Webin Mohamed Lemine Cheikh Abdallahi",
+    "moyenne": 16.198924731182796,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Lycée Excellence 1",
+    "serie": "SN"
+  },
+  {
+    "numero": "18626",
+    "nom": "Zehra Sidi Cheikh Sidi Vall",
+    "moyenne": 16.16532258064516,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Lycée Excellence 1",
+    "serie": "SN"
+  },
+  {
+    "numero": "19507",
+    "nom": "Memma Abdatty Bouhebeini",
+    "moyenne": 16.024193548387096,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Lycée de Garçons 2",
+    "serie": "SN"
+  },
+  {
+    "numero": "18618",
+    "nom": "Hamed Mohamed Salem Eby El Maaly",
+    "moyenne": 16.0,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Lycée Excellence 1",
+    "serie": "SN"
+  },
+  {
+    "numero": "18583",
+    "nom": "Mohamed Lemine Isselmou Ethmane",
+    "moyenne": 15.9375,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Ecole Annexe",
+    "serie": "M"
+  },
+  {
+    "numero": "18636",
+    "nom": "Vatimetou Sidi Mohamed Ghabed",
+    "moyenne": 15.86328125,
+    "decision": "Admis Sn",
+    "wilaya": "Nouakchott 2 (Ouest)",
+    "centre": "Lycée Excellence 1",
+    "serie": "SN"
+  }
+]

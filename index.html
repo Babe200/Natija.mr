@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نتائج الباكالوريا 2019</title>
+  <style>
+    body {{ font-family: Helvetica, sans-serif; padding: 20px; background: #f9f9f9; direction: rtl; }}
+    select, input {{ padding: 8px; margin: 5px; font-size: 1em; }}
+    table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
+    th, td {{ padding: 10px; border: 1px solid #ccc; text-align: center; }}
+    th {{ background-color: #eee; }}
+  </style>
+</head>
+<body>
+  <h2>نتائج الباكالوريا 2019</h2>
+  <div>
+    <label>رقم الجلوس:</label>
+    <input type="text" id="numInput" placeholder="أدخل رقم الجلوس الكامل" />
+    <button onclick="searchResult()">بحث</button>
+  </div>
+  <div>
+    <label>الولاية:</label>
+    <select id="wilayaSelect" onchange="filterResults()">
+      <option value="">-- اختر الولاية --</option>
+      <option value="Adrar">Adrar</option>
+<option value="Assaba">Assaba</option>
+<option value="Brakna">Brakna</option>
+<option value="Dakhlet NDB">Dakhlet NDB</option>
+<option value="Gorgol">Gorgol</option>
+<option value="Guidimagha">Guidimagha</option>
+<option value="Hod Charghy">Hod Charghy</option>
+<option value="Hod Gharby">Hod Gharby</option>
+<option value="Inchiri">Inchiri</option>
+<option value="Nouakchott 1 (Nord)">Nouakchott 1 (Nord)</option>
+<option value="Nouakchott 2 (Ouest)">Nouakchott 2 (Ouest)</option>
+<option value="Nouakchott 3 (Sud)">Nouakchott 3 (Sud)</option>
+<option value="Tagant">Tagant</option>
+<option value="Tiris Zemour">Tiris Zemour</option>
+<option value="Trarza">Trarza</option>
+    </select>
+
+    <label>المركز:</label>
+    <select id="centreSelect" onchange="filterResults()">
+      <option value="">-- اختر المركز --</option>
+      <option value="College Arafat 2">College Arafat 2</option>
+<option value="College Arafat 5">College Arafat 5</option>
+<option value="College Arafat 6">College Arafat 6</option>
+<option value="College Babe El veth">College Babe El veth</option>
+<option value="College El Mina 3">College El Mina 3</option>
+<option value="College Kaedi 2">College Kaedi 2</option>
+<option value="College Kiffa 3">College Kiffa 3</option>
+<option value="College Nema 1">College Nema 1</option>
+<option value="College Riyad 2">College Riyad 2</option>
+<option value="College Rosso 4">College Rosso 4</option>
+<option value="College Teyarett 1">College Teyarett 1</option>
+<option value="College Teyarett 3">College Teyarett 3</option>
+<option value="College Toujounine 4">College Toujounine 4</option>
+<option value="Collège  Jeunes Filles">Collège  Jeunes Filles</option>
+<option value="Collège Elmina 1">Collège Elmina 1</option>
+<option value="Collège Kiffa 1">Collège Kiffa 1</option>
+<option value="Collège Kiffa 2">Collège Kiffa 2</option>
+<option value="Collège Ksar">Collège Ksar</option>
+<option value="Collége Ain Savra">Collége Ain Savra</option>
+<option value="Collége Arafat 3">Collége Arafat 3</option>
+<option value="Collége Boutilimit 2">Collége Boutilimit 2</option>
+<option value="Collége Jeunes Filles d'Aioun">Collége Jeunes Filles d'Aioun</option>
+<option value="Collége Rosso 1">Collége Rosso 1</option>
+<option value="Collége Sebkha 1">Collége Sebkha 1</option>
+<option value="Collége Tumba Yali">Collége Tumba Yali</option>
+<option value="E E T F P I de Nouakchott">E E T F P I de Nouakchott</option>
+<option value="ENI">ENI</option>
+<option value="Ecole 3  (Maison de Jeunes)">Ecole 3  (Maison de Jeunes)</option>
+<option value="Ecole 6 Nema  (Chewviya)">Ecole 6 Nema  (Chewviya)</option>
+<option value="Ecole Annexe">Ecole Annexe</option>
+<option value="Ecole Ould Taleb Ely- Teyaret">Ecole Ould Taleb Ely- Teyaret</option>
+<option value="Ecole Satara Rosso">Ecole Satara Rosso</option>
+<option value="Ecole Sidi Abdoullah-Arafat">Ecole Sidi Abdoullah-Arafat</option>
+<option value="Ecole Sidigh Dar Naim">Ecole Sidigh Dar Naim</option>
+<option value="Eni d' Aioun">Eni d' Aioun</option>
+<option value="Houceine PT 11- Arafat">Houceine PT 11- Arafat</option>
+<option value="Lycee Bareina">Lycee Bareina</option>
+<option value="Lycee Boubacar">Lycee Boubacar</option>
+<option value="Lycee Excellence Kiffa">Lycee Excellence Kiffa</option>
+<option value="Lycee Ghuidiya">Lycee Ghuidiya</option>
+<option value="Lycee Kifa 1">Lycee Kifa 1</option>
+<option value="Lycee Mata Moulana">Lycee Mata Moulana</option>
+<option value="Lycee O/ Yenge">Lycee O/ Yenge</option>
+<option value="Lycee Tekane">Lycee Tekane</option>
+<option value="Lycèe Achram">Lycèe Achram</option>
+<option value="Lycèe N'Jimlan">Lycèe N'Jimlan</option>
+<option value="Lycèe N'beika">Lycèe N'beika</option>
+<option value="Lycée  Aioun (A)">Lycée  Aioun (A)</option>
+<option value="Lycée  Aioun (B)">Lycée  Aioun (B)</option>
+<option value="Lycée  Akjoujt">Lycée  Akjoujt</option>
+<option value="Lycée  Aleg">Lycée  Aleg</option>
+<option value="Lycée  Arabe">Lycée  Arabe</option>
+<option value="Lycée  Atar">Lycée  Atar</option>
+<option value="Lycée  Banguou">Lycée  Banguou</option>
+<option value="Lycée  Boghe">Lycée  Boghe</option>
+<option value="Lycée  Boutilimitt (A)">Lycée  Boutilimitt (A)</option>
+<option value="Lycée  Boutilimitt (B)">Lycée  Boutilimitt (B)</option>
+<option value="Lycée  Djigueni">Lycée  Djigueni</option>
+<option value="Lycée  Jedida">Lycée  Jedida</option>
+<option value="Lycée  Kaedi 1">Lycée  Kaedi 1</option>
+<option value="Lycée  Kaedi 2">Lycée  Kaedi 2</option>
+<option value="Lycée  Magta-Lahjar">Lycée  Magta-Lahjar</option>
+<option value="Lycée  Mederdra">Lycée  Mederdra</option>
+<option value="Lycée  Nema">Lycée  Nema</option>
+<option value="Lycée  Nouadhibou 1">Lycée  Nouadhibou 1</option>
+<option value="Lycée  Nouadhibou 2">Lycée  Nouadhibou 2</option>
+<option value="Lycée  Nouadhibou 3">Lycée  Nouadhibou 3</option>
+<option value="Lycée  Rkiz">Lycée  Rkiz</option>
+<option value="Lycée  Rosso">Lycée  Rosso</option>
+<option value="Lycée  Seilibaby 1">Lycée  Seilibaby 1</option>
+<option value="Lycée  Tidjikja">Lycée  Tidjikja</option>
+<option value="Lycée  Timbedra">Lycée  Timbedra</option>
+<option value="Lycée  Tintane">Lycée  Tintane</option>
+<option value="Lycée  Toujounine 1">Lycée  Toujounine 1</option>
+<option value="Lycée  Wava Nouadhibou">Lycée  Wava Nouadhibou</option>
+<option value="Lycée  Zouerat">Lycée  Zouerat</option>
+<option value="Lycée Amourj">Lycée Amourj</option>
+<option value="Lycée Arafat 1 (B)">Lycée Arafat 1 (B)</option>
+<option value="Lycée Arafat 2 (A)">Lycée Arafat 2 (A)</option>
+<option value="Lycée Arafat 2 (B)">Lycée Arafat 2 (B)</option>
+<option value="Lycée Arafat 3">Lycée Arafat 3</option>
+<option value="Lycée Arafat Boutilimitt">Lycée Arafat Boutilimitt</option>
+<option value="Lycée Arafat1 (A)">Lycée Arafat1 (A)</option>
+<option value="Lycée Bababé">Lycée Bababé</option>
+<option value="Lycée Bagoudine">Lycée Bagoudine</option>
+<option value="Lycée Bassiknou">Lycée Bassiknou</option>
+<option value="Lycée Bennichab">Lycée Bennichab</option>
+<option value="Lycée Boulehratt">Lycée Boulehratt</option>
+<option value="Lycée Boumdeid">Lycée Boumdeid</option>
+<option value="Lycée Dar Naim 1">Lycée Dar Naim 1</option>
+<option value="Lycée Dar Naim 3">Lycée Dar Naim 3</option>
+<option value="Lycée Djeol">Lycée Djeol</option>
+<option value="Lycée Dwairara">Lycée Dwairara</option>
+<option value="Lycée El Mina 2">Lycée El Mina 2</option>
+<option value="Lycée Elmina1 (A)">Lycée Elmina1 (A)</option>
+<option value="Lycée Elmina1 (B)">Lycée Elmina1 (B)</option>
+<option value="Lycée Excellence 1">Lycée Excellence 1</option>
+<option value="Lycée Excellence 4 TZN">Lycée Excellence 4 TZN</option>
+<option value="Lycée Guerrou">Lycée Guerrou</option>
+<option value="Lycée J. F. Atar">Lycée J. F. Atar</option>
+<option value="Lycée Kankoussa">Lycée Kankoussa</option>
+<option value="Lycée Lexeiba 1">Lycée Lexeiba 1</option>
+<option value="Lycée M'Boutt">Lycée M'Boutt</option>
+<option value="Lycée Magham Ibrahim">Lycée Magham Ibrahim</option>
+<option value="Lycée Mbagne">Lycée Mbagne</option>
+<option value="Lycée Modjeria">Lycée Modjeria</option>
+<option value="Lycée Naim">Lycée Naim</option>
+<option value="Lycée Riyad 1">Lycée Riyad 1</option>
+<option value="Lycée Riyad 2">Lycée Riyad 2</option>
+<option value="Lycée Sava">Lycée Sava</option>
+<option value="Lycée Sebkha 2">Lycée Sebkha 2</option>
+<option value="Lycée Tamchekett">Lycée Tamchekett</option>
+<option value="Lycée Tevrag-Zeina">Lycée Tevrag-Zeina</option>
+<option value="Lycée Teyaratt 1">Lycée Teyaratt 1</option>
+<option value="Lycée Teyaratt 2">Lycée Teyaratt 2</option>
+<option value="Lycée Tiguinit">Lycée Tiguinit</option>
+<option value="Lycée Toujounine 2">Lycée Toujounine 2</option>
+<option value="Lycée Toujounine 4">Lycée Toujounine 4</option>
+<option value="Lycée Wad naga">Lycée Wad naga</option>
+<option value="Lycée chinguetti">Lycée chinguetti</option>
+<option value="Lycée de Garçons 1">Lycée de Garçons 1</option>
+<option value="Lycée de Garçons 2">Lycée de Garçons 2</option>
+<option value="Lycée de Kobéni">Lycée de Kobéni</option>
+<option value="Ould Ahmed Zerough- Msid Nour">Ould Ahmed Zerough- Msid Nour</option>
+<option value="Ould Tweir Jenna-Msid Nour">Ould Tweir Jenna-Msid Nour</option>
+    </select>
+  </div>
+
+  <table id="resultsTable" style="display: none;">
+    <thead>
+      <tr>
+        <th>رقم الجلوس</th>
+        <th>الاسم</th>
+        <th>المعدل</th>
+        <th>القرار</th>
+        <th>الولاية</th>
+        <th>المركز</th>
+      </tr>
+    </thead>
+    <tbody id="resultsBody"></tbody>
+  </table>
+
+  <script>
+    let allData = [];
+
+    async function fetchData() {{
+      const parts = [1,2,3,4];
+      const promises = parts.map(p => fetch(`bac_part${p}.json`).then(res => res.json()));
+      const results = await Promise.all(promises);
+      allData = results.flat();
+    }}
+
+    function renderTable(data) {{
+      const table = document.getElementById("resultsTable");
+      const body = document.getElementById("resultsBody");
+      body.innerHTML = "";
+      data.forEach(row => {{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${{row["numéro bac"]}}</td>
+          <td>${{row["nom"]}}</td>
+          <td>${{row["moyenne"]}}</td>
+          <td>${{row["decision"]}}</td>
+          <td>${{row["wilaya"]}}</td>
+          <td>${{row["centre"]}}</td>
+        `;
+        body.appendChild(tr);
+      }});
+      table.style.display = data.length ? "table" : "none";
+    }}
+
+    function searchResult() {{
+      const num = document.getElementById("numInput").value.trim();
+      if (num.length < 5) return alert("يرجى إدخال رقم جلوس كامل.");
+      const results = allData.filter(r => r["numéro bac"] === num);
+      renderTable(results);
+    }}
+
+    function filterResults() {{
+      const wilaya = document.getElementById("wilayaSelect").value;
+      const centre = document.getElementById("centreSelect").value;
+      let filtered = allData;
+      if (wilaya) filtered = filtered.filter(r => r["wilaya"] === wilaya);
+      if (centre) filtered = filtered.filter(r => r["centre"] === centre);
+      renderTable(filtered);
+    }}
+
+    window.onload = fetchData;
+  </script>
+</body>
+</html>
